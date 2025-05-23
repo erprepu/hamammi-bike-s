@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TALLER HAMAMMI BIKE'S</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: sans-serif; background: #f1f1f1; margin: 0; padding: 0; }
+        header, footer { background: #333; color: white; text-align: center; padding: 20px; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; padding: 20px; gap: 20px; }
+        .product-card { background: white; width: 280px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
+        .product-card img { width: 100%; height: 180px; object-fit: cover; }
+        .product-card h3 { margin: 10px; }
+        .product-card p { margin: 10px; color: #555; }
+        .price { font-weight: bold; color: #2d7dd2; margin: 10px; }
+        .btn { background: #2d7dd2; color: white; display: inline-block; margin: 10px; padding: 10px 20px; border-radius: 5px; text-decoration: none; }
+        .btn:hover { background: #1a5a9d; }
+        .more-info { display: none; background: #f9f9f9; padding: 15px; border-top: 1px solid #ccc; }
+        .more-info ul { text-align: left; margin: 10px 0; padding-left: 20px; color: #666; }
+        .buy-btn { background-color: #27ae60; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
+        .buy-btn:hover { background-color: #1e8a50; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>TALLER HAMAMMI BIKE'S</h1>
+    <p>🚴‍♂️Pedalea sin preocupaciones, del resto nos encargamos nosotros🔧</p>
+<img src="images/taller.jpg" alt="TALLER HAMAMMI BIKE´S">
+</header>
+<div class="container">
+
+    <div class="product-card">
+        <img src="images/kit_reparacion.jpg" alt="Kit de Reparación de Pinchazos">
+        <h3>Kit de Reparación de Pinchazos</h3>
+        <p>Repara pinchazos rápidamente con estos parches autoadhesivos.</p>
+        <p class="price">$7.99</p>
+        <a href="javascript:void(0)" class="btn" onclick="toggleInfo(0)">Ver más</a>
+        <div id="more-info-0" class="more-info">
+            <ul><li>8 parches autoadhesivos</li><li>Fácil de usar</li><li>Compacto y portátil</li></ul>
+            <a href="https://www.decathlon.es/es/p/kit-reparacion-pinchazos-camara-de-aire-para-bicicleta-autoadhesivos-8-parches/_/R-p-311179" class="buy-btn" target="_blank">Comprar</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="images/timbre.jpg" alt="Timbre para Bicicleta">
+        <h3>Timbre para Bicicleta</h3>
+        <p>Hazte notar en la vía con este timbre universal.</p>
+        <p class="price">$4.99</p>
+        <a href="javascript:void(0)" class="btn" onclick="toggleInfo(1)">Ver más</a>
+        <div id="more-info-1" class="more-info">
+            <ul><li>Sonido fuerte</li><li>Fácil instalación</li><li>Compatible con la mayoría de bicis</li></ul>
+            <a href="https://www.decathlon.es/es/p/timbre-bicicleta-100-universal/_/R-p-145436" class="buy-btn" target="_blank">Comprar</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="images/triban_rc100.jpg" alt="Bicicleta de Ruta Triban RC 100">
+        <h3>Bicicleta de Ruta Triban RC 100</h3>
+        <p>Ideal para iniciarte en el ciclismo de carretera.</p>
+        <p class="price">$300</p>
+        <a href="javascript:void(0)" class="btn" onclick="toggleInfo(2)">Ver más</a>
+        <div id="more-info-2" class="more-info">
+            <ul><li>Marco de aluminio</li><li>Monoplato</li><li>Ruedas de carretera</li></ul>
+            <a href="https://www.decathlon.es/es/p/bicicleta-de-carretera-aluminio-monoplato-triban-rc-100-gris/_/R-p-305831" class="buy-btn" target="_blank">Comprar</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="images/rockrider_st120.jpg" alt="Bicicleta de Montaña Rockrider ST 120">
+        <h3>Bicicleta de Montaña Rockrider ST 120</h3>
+        <p>Explora caminos difíciles con esta resistente MTB.</p>
+        <p class="price">$249</p>
+        <a href="javascript:void(0)" class="btn" onclick="toggleInfo(3)">Ver más</a>
+        <div id="more-info-3" class="more-info">
+            <ul><li>Suspensión delantera</li><li>Ruedas 27.5”</li><li>Frenos V-Brake</li></ul>
+            <a href="https://www.decathlon.es/es/p/bicicleta-de-montana-27-5-aluminio-monoplato-rockrider-st-120-negro/_/R-p-305496" class="buy-btn" target="_blank">Comprar</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="images/casco_expl500.jpg" alt="Casco Rockrider EXPL 500">
+        <h3>Casco Rockrider EXPL 500</h3>
+        <p>Protege tu cabeza con comodidad y estilo.</p>
+        <p class="price">$24.99</p>
+        <a href="javascript:void(0)" class="btn" onclick="toggleInfo(4)">Ver más</a>
+        <div id="more-info-4" class="more-info">
+            <ul><li>Buena ventilación</li><li>Ligero y cómodo</li><li>Diseño aerodinámico</li></ul>
+            <a href="https://www.decathlon.es/es/p/casco-bicicleta-mtb-adulto-rockrider-expl-500-azul-grafico/_/R-p-301136" class="buy-btn" target="_blank">Comprar</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="images/luces.jpg" alt="Luces para Bicicleta">
+        <h3>Luces para Bicicleta</h3>
+        <p>Visibilidad y seguridad con luces LED.</p>
+        <p class="price">$15.99</p>
+        <a href="javascript:void(0)" class="btn" onclick="toggleInfo(5)">Ver más</a>
+        <div id="more-info-5" class="more-info">
+            <ul><li>Delantera y trasera</li><li>LED brillante</li><li>Fácil montaje</li></ul>
+            <a href="https://www.decathlon.es/es/deportes/ciclismo/luces-bicicleta" class="buy-btn" target="_blank">Comprar</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="images/soporte.jpg" alt="Soporte para Bicicleta">
+        <h3>Soporte para Bicicleta</h3>
+        <p>Guarda tu bici de forma ordenada con este soporte.</p>
+        <p class="price">$19.99</p>
+        <a href="javascript:void(0)" class="btn" onclick="toggleInfo(6)">Ver más</a>
+        <div id="more-info-6" class="more-info">
+            <ul><li>Montaje en pared</li><li>Ahorra espacio</li><li>Fácil de instalar</li></ul>
+            <a href="https://www.decathlon.es/es/p/soporte-bicicleta-ajustable/_/R-p-X8835429" class="buy-btn" target="_blank">Comprar</a>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2025 HAMAMMI BIKE'S. Todos los derechos reservados.</p>
+</footer>
+<script>
+    function toggleInfo(id) {
+        const el = document.getElementById('more-info-' + id);
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+</body>
+</html>
