@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamammi Bike's - Tu Taller de Bicicletas</title>
+    <style>
+        /* Estilos CSS Generales */
+        body {
+            font-family: 'Inter', sans-serif; /* Fuente recomendada */
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8; /* Un color de fondo suave */
+            color: #2c3e50; /* Color de texto oscuro */
+            line-height: 1.6;
+            scroll-behavior: smooth; /* Desplazamiento suave para enlaces ancla */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        header {
+            background-color: #3498db; /* Azul vibrante para el header */
+            color: white;
+            padding: 2em 0;
+            text-align: center;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        nav {
+            background-color: #2980b9; /* Un azul ligeramente más oscuro para la navegación */
+            padding: 0.8em 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky; /* Menú de navegación fijo al hacer scroll */
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            margin: 0 10px; /* Menos margen para más elementos */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em; /* Un poco más pequeño para caber más */
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block; /* Para que el padding funcione bien */
+        }
+        nav a:hover {
+            background-color: #34495e; /* Azul oscuro al pasar el ratón */
+            transform: translateY(-2px);
+        }
+        /* Estilos para las secciones (simulando páginas) */
+        .page {
+            display: none; /* Todas las "páginas" ocultas por defecto */
+            padding: 40px 0;
+            text-align: center;
+        }
+        .page.active {
+            display: block; /* La "página" activa se muestra */
+        }
+        .section-title {
+            font-size: 2.5em;
+            color: #3498db;
+            margin-bottom: 30px;
+            font-weight: 600;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .hero {
+            /* Ruta relativa para la imagen de fondo */
+            background: url('images/taller_principal.jpg') no-repeat center center/cover;
+            color: white;
+            padding: 80px 20px;
+            border-radius: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+            margin-bottom: 30px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+        }
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .hero p {
+            font-size: 1.4em;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+        .btn-primary {
+            background-color: #28a745; /* Verde para el botón */
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+        }
+        .btn-primary:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.6);
+        }
+        .features-grid, .index-list, .team-grid, .product-categories, .offer-grid, .news-list, .contact-info-grid, .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .feature-item, .index-list li, .team-member, .category-item, .offer-item, .contact-item, .product-item {
+            background-color: #ecf0f1; /* Gris claro */
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative; /* Para el icono de enlace en índice */
+        }
+        .feature-item:hover, .index-list li:hover, .team-member:hover, .category-item:hover, .offer-item:hover, .contact-item:hover, .product-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .index-list a, .category-item a {
+            color: #2980b9;
+            text-decoration: none;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: block; /* Para que todo el área del li sea clicable */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .index-list a:hover, .category-item a:hover {
+            color: #34495e;
+        }
+
+        .team-member img, .category-item img, .contact-item img {
+            width: 150px; /* Tamaño unificado para imágenes de miembros, categorías, contacto */
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #3498db;
+            margin-bottom: 15px;
+        }
+        .product-item img, .offer-item img {
+            max-width: 100%;
+            height: 200px; /* Altura fija para imágenes de producto/oferta */
+            object-fit: contain; /* Para que la imagen se vea completa */
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 3px solid #28a745; /* Color de borde para productos */
+        }
+        .map-container {
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .map-container iframe, .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border: 0;
+            border-radius: 10px;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .cv-link-section, .offer-item .price, .offer-item .original-price {
+            margin-top: 50px;
+            background-color: #d4edda; /* Un verde claro para esta sección */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .cv-link-section a, .offer-item .price {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+            display: inline-block;
+        }
+        .cv-link-section a:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.6);
+        }
+        .offer-item .price {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #e74c3c; /* Rojo para destacar el precio */
+            background-color: transparent; /* Anulamos el color de fondo para el precio */
+            box-shadow: none; /* Anulamos la sombra del precio */
+            padding: 0;
+        }
+        .offer-item .original-price {
+            text-decoration: line-through;
+            color: #7f8c8d; /* Gris para el precio original */
+            margin-left: 10px;
+        }
+        .news-item {
+            background-color: #ecf0f1;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .news-item h3 {
+            color: #2980b9;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .news-item p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .news-item .date {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .news-item a {
+            color: #28a745;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .news-item a:hover {
+            color: #218838;
+        }
+        .page-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        footer {
+            background-color: #2c3e50; /* Gris oscuro para el footer */
+            color: white;
+            text-align: center;
+            padding: 1.5em 0;
+            margin-top: 50px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
+        }
+        .gif-mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px; /* Espacio entre los GIFs */
+        }
+        .gif-mascot img {
+            width: 90px; /* Tamaño un poco más grande */
+            height: 90px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+        .gif-mascot img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Media Queries para Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            nav a {
+                margin: 0 8px;
+                font-size: 0.9em;
+                padding: 6px 10px;
+            }
+            .hero {
+                padding: 50px 15px;
+            }
+            .hero h2 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .features-grid, .index-list, .team-grid, .product-categories, .offer-grid, .news-list, .contact-info-grid, .product-grid {
+                grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+            }
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            .gif-mascot {
+                bottom: 10px;
+                right: 10px;
+            }
+            .gif-mascot img {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hamammi Bike's</h1>
+        <p>Tu Taller de Bicicletas de Confianza</p>
+    </header>
+
+    <nav>
+        <a href="#principal" onclick="showPage('principal')">Inicio</a>
+        <a href="#indice" onclick="showPage('indice')">Índice</a>
+        <a href="#ubicacion" onclick="showPage('ubicacion')">Ubicación</a>
+        <a href="#trabajadores" onclick="showPage('trabajadores')">Equipo</a>
+        <a href="#productos" onclick="showPage('productos')">Productos</a>
+        <a href="#ofertas" onclick="showPage('ofertas'); playTrumpet()">Ofertas</a>
+        <a href="#noticias" onclick="showPage('noticias')">Noticias</a>
+        <a href="#contacto" onclick="showPage('contacto')">Contacto</a>
+    </nav>
+
+    <div class="container">
+        <!-- PAG 1: PRINCIPAL -->
+        <section id="principal" class="page active">
+            <div class="hero" style="background-image: url('images/taller_principal.jpg');">
+                <h2>¡Tu Bici, Siempre Lista para la Aventura!</h2>
+                <p>En Hamammi Bike's, somos apasionados del ciclismo y nos dedicamos a ofrecer el mejor servicio de reparación, mantenimiento y personalización para tu compañera de dos ruedas.</p>
+                <a href="#productos" class="btn-primary" onclick="showPage('productos')">Descubre Nuestros Productos</a>
+            </div>
+
+            <h2 class="section-title">¿Por qué elegir Hamammi Bike's?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>Expertos Certificados</h3>
+                    <p>Contamos con un equipo de mecánicos profesionales y con años de experiencia en el sector.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Servicio Rápido y Eficaz</h3>
+                    <p>Entendemos tu pasión, por eso trabajamos para que tu bici vuelva a la carretera en el menor tiempo posible.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Garantía de Calidad</h3>
+                    <p>Utilizamos solo repuestos de primera calidad y garantizamos todos nuestros trabajos.</p>
+                </div>
+            </div>
+            <img src="images/taller_interior.jpg" alt="[Image of Hamammi Bike's workshop]" class="page-image">
+        </section>
+
+        <!-- PAG 2: ÍNDICE -->
+        <section id="indice" class="page">
+            <h2 class="section-title">Navega por Nuestro Sitio</h2>
+            <p>Haz clic en cualquier sección para explorar todo lo que Hamammi Bike's tiene para ofrecerte.</p>
+            <ul class="index-list" style="list-style: none; padding: 0;">
+                <li><a href="#principal" onclick="showPage('principal')">Página Principal</a></li>
+                <li><a href="#ubicacion" onclick="showPage('ubicacion')">Ubicación del Negocio</a></li>
+                <li><a href="#trabajadores" onclick="showPage('trabajadores')">Nuestro Equipo</a></li>
+                <li><a href="#productos" onclick="showPage('productos')">Productos</a></li>
+                <li><a href="#ofertas" onclick="showPage('ofertas'); playTrumpet()">Ofertas Especiales</a></li>
+                <li><a href="#noticias" onclick="showPage('noticias')">Noticias y Eventos</a></li>
+                <li><a href="#contacto" onclick="showPage('contacto')">Contacto</a></li>
+                <li><a href="#categorias" onclick="showPage('categorias')">Categorías de Productos</a></li>
+                <li><a href="#componentes" onclick="showPage('componentes')">Componentes de Bicicleta</a></li>
+                <li><a href="#accesorios" onclick="showPage('accesorios')">Accesorios para Bicicleta</a></li>
+                <li><a href="#bicicletas_completas" onclick="showPage('bicicletas_completas')">Bicicletas Completas</a></li>
+            </ul>
+            <img src="images/rutas_bici.jpg" alt="[Image of bicycle routes]" class="page-image">
+        </section>
+
+        <!-- PAG 3: UBICACIÓN DEL NEGOCIO -->
+        <section id="ubicacion" class="page">
+            <h2 class="section-title">Nuestra Ubicación</h2>
+            <p>Estamos convenientemente ubicados en el corazón de la ciudad, ¡listos para atender tu bicicleta!</p>
+            
+            <div class="map-container">
+                <!-- Puedes obtener el código de incrustación de Google Maps buscando tu negocio en Maps, haciendo clic en 'Compartir' y luego en 'Insertar un mapa' -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.669894732152!2d-3.703790284606775!3d40.41677577936125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422998a4d4b3d7%3A0x8e8a8b1a8d0b8b1a!2sPuerta+del+Sol!5e0!3m2!1ses!2ses!4v1678901234567!5m2!1ses!2ses" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <div class="address-info">
+                <p><strong>Dirección:</strong> Calle de la Bici, 123, 28013 Madrid, España</p>
+                <p><strong>Horario:</strong> Lunes a Viernes: 9:00 - 14:00 y 16:00 - 20:00 | Sábados: 10:00 - 14:00</p>
+            </div>
+            <img src="images/entrada_taller.jpg" alt="[Image of Hamammi Bike's entrance]" class="page-image">
+        </section>
+
+        <!-- PAG 4: TRABAJADORES -->
+        <section id="trabajadores" class="page">
+            <h2 class="section-title">Nuestro Equipo</h2>
+            <p>En Hamammi Bike's, contamos con mecánicos apasionados y altamente cualificados que comparten tu amor por las bicicletas. ¡Conócelos!</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="images/juan_mecanico.jpg" onerror="this.src='https://placehold.co/150x150/3498db/ffffff?text=Juan+Mec%C3%A1nico'" alt="[Image of Juan, Chief Mechanic]">
+                    <h3>Juan Pérez</h3>
+                    <p>Mecánico Jefe y Especialista en Transmisiones.</p>
+                    <p>Con más de 15 años de experiencia, Juan es nuestro gurú de las marchas y el alma del taller. Experto en MTB y carretera.</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/ana_disenadora.jpg" onerror="this.src='https://placehold.co/150x150/28a745/ffffff?text=Ana+Dise%C3%B1adora'" alt="[Image of Ana, Customization Advisor]">
+                    <h3>Ana García</h3>
+                    <p>Asesora de Personalización y Montajes a Medida.</p>
+                    <p>Ana combina su creatividad con un profundo conocimiento técnico para ayudarte a diseñar la bici de tus sueños o darle un toque único.</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/carlos_tecnico.jpg" onerror="this.src='https://placehold.co/150x150/e67e22/ffffff?text=Carlos+T%C3%A9cnico'" alt="[Image of Carlos, Suspension Technician]">
+                    <h3>Carlos Ruíz</h3>
+                    <p>Técnico de Suspensión y Electricidad.</p>
+                    <p>Carlos es el especialista en bicis eléctricas y suspensiones, asegurando un rendimiento óptimo en cada sendero o ciudad.</p>
+                </div>
+            </div>
+
+            <img src="images/equipo_hamammi.jpg" alt="[Image of Hamammi Bike's team]" class="page-image">
+
+            <div class="cv-link-section">
+                <h3>¿Quieres unirte a nuestro equipo?</h3>
+                <p>¡Mira el curriculum de nuestros trabajadores para que veas que no son unas personas cualquiera! A si que esfuerzate...</p>
+                <!-- IMPORTANTE: Sustituye 'curriculum_ejemplo.pdf' por el nombre de tu archivo PDF real en la misma carpeta o una ruta relativa -->
+                <a href="curriculum_ejemplo.pdf" target="_blank">Descargar Currículum de Trabajadores (PDF)</a>
+            </div>
+        </section>
+
+        <!-- PAG 5: PRODUCTOS (es más una página de introducción a las categorías) -->
+        <section id="productos" class="page">
+            <h2 class="section-title">Explora Nuestros Productos</h2>
+            <p>Ofrecemos una selección de componentes, accesorios y bicicletas completas para mejorar tu experiencia ciclista. ¡Haz clic en una categoría para ver más!</p>
+            
+            <img src="images/variedad_productos.jpg" alt="[Image of bicycle product variety]" class="page-image">
+
+            <h3 class="section-title" style="font-size: 2em; margin-top: 50px;">Nuestras Categorías</h3>
+            <div class="product-categories">
+                <a href="#componentes" class="category-item" onclick="showPage('componentes')">
+                    <img src="images/componentes.jpg" onerror="this.src='https://placehold.co/180x180/e67e22/ffffff?text=Componentes'" alt="[Image of Components]">
+                    <h3>Componentes</h3>
+                </a>
+                <a href="#accesorios" class="category-item" onclick="showPage('accesorios')">
+                    <img src="images/accesorios.jpg" onerror="this.src='https://placehold.co/180x180/28a745/ffffff?text=Accesorios'" alt="[Image of Accessories]">
+                    <h3>Accesorios</h3>
+                </a>
+                <a href="#bicicletas_completas" class="category-item" onclick="showPage('bicicletas_completas')">
+                    <img src="images/bicicletas_completas.jpg" onerror="this.src='https://placehold.co/180x180/8e44ad/ffffff?text=Bicicletas'" alt="[Image of Complete Bicycles]">
+                    <h3>Bicicletas Completas</h3>
+                </a>
+            </div>
+        </section>
+
+        <!-- PAG 6: OFERTAS -->
+        <section id="ofertas" class="page">
+            <h2 class="section-title">¡Ofertas Especiales del Mes!</h2>
+            <p>Aprovecha nuestros descuentos exclusivos en productos y servicios seleccionados. ¡Por tiempo limitado!</p>
+            
+            <img src="images/ofertas_bicicletas.jpg" alt="[Image of bicycle offers]" class="page-image">
+
+            <div class="offer-grid">
+                <div class="offer-item">
+                    <img src="images/casco_oferta.jpg" onerror="this.src='https://placehold.co/300x200/28a745/ffffff?text=Casco+Oferta'" alt="[Image of Cycling Helmet Offer]">
+                    <h3>Casco AeroPRO 2000</h3>
+                    <p>Protección y aerodinámica al mejor precio.</p>
+                    <p><span class="price">49.99€</span> <span class="original-price">79.99€</span></p>
+                </div>
+                <div class="offer-item">
+                    <img src="images/mantenimiento_oferta.jpg" onerror="this.src='https://placehold.co/300x200/3498db/ffffff?text=Mantenimiento+Oferta'" alt="[Image of Bicycle Maintenance Offer]">
+                    <h3>Revisión Completa - ¡25% Dto!</h3>
+                    <p>Puesta a punto total para tu bici de carretera o montaña.</p>
+                    <p><span class="price">45.00€</span> <span class="original-price">60.00€</span></p>
+                </div>
+                <div class="offer-item">
+                    <img src="images/luz_bici_oferta.jpg" onerror="this.src='https://placehold.co/300x200/8e44ad/ffffff?text=Luz+Bici+Oferta'" alt="[Image of Bicycle Light Offer]">
+                    <h3>Pack Luces LED Ultra</h3>
+                    <p>Máxima visibilidad para tus rutas nocturnas.</p>
+                    <p><span class="price">29.99€</span> <span class="original-price">45.00€</p>
+                </div>
+            </div>
+            <p style="margin-top: 30px; font-size: 1.1em; font-weight: bold; color: #e74c3c;">¡No dejes escapar estas oportunidades!</p>
+        </section>
+
+        <!-- PAG 7: NOTICIAS -->
+        <section id="noticias" class="page">
+            <h2 class="section-title">Noticias y Eventos</h2>
+            <p>Descubre lo más reciente del mundo del ciclismo, consejos de mantenimiento y eventos de la comunidad.</p>
+            
+            <img src="images/noticias_ciclismo.jpg" alt="[Image of cycling news]" class="page-image">
+
+            <ul class="news-list" style="list-style: none; padding: 0;">
+                <li class="news-item">
+                    <span class="date">10 de Junio de 2024</span>
+                    <h3>Ruta Cicloturista Solidaria 2024</h3>
+                    <p>Inscríbete en nuestra ruta anual para apoyar una buena causa. ¡Te esperamos!</p>
+                    <a href="#">Leer más...</a>
+                </li>
+                <li class="news-item">
+                    <span class="date">5 de Junio de 2024</span>
+                    <h3>Consejos Esenciales para el Cuidado de tu Cadena</h3>
+                    <p>Una cadena limpia y lubricada es crucial para el rendimiento y la durabilidad de tu bicicleta. ¡Descubre cómo hacerlo!</p>
+                    <a href="#">Leer más...</a>
+                </li>
+                <li class="news-item">
+                    <span class="date">1 de Junio de 2024</span>
+                    <h3>¡Nuevo Video! Tu Taller de Bicicletas Hamammi Bike's</h3>
+                    <p>Échale un vistazo a nuestro nuevo video donde te mostramos un día en Hamammi Bike's y a nuestro equipo trabajando en acción.</p>
+                    <!-- NOTICIA QUE ABRE UNA PÁGINA CON EL VIDEO DE YOUTUBE -->
+                    <a href="#video_taller" onclick="showPage('video_taller')">Ver Video del Taller</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- PAG 7.1: VIDEO DEL TALLER (Sub-página de noticias) -->
+        <section id="video_taller" class="page">
+            <h2 class="section-title">Un Vistazo a Hamammi Bike's</h2>
+            <p>Descubre cómo trabajamos y la pasión que ponemos en cada bicicleta. ¡Te invitamos a conocernos un poco mejor!</p>
+            
+            <img src="images/video_taller_preview.jpg" alt="[Image of workshop video]" class="page-image">
+
+            <div class="video-container">
+                <!-- IMPORTANTE: Sustituye 'VIDEO_ID_DE_TU_YOUTUBE' por el ID real de tu video de YouTube -->
+                <!-- Ejemplo de ID: Para https://www.youtube.com/watch?v=dQw4w9WgXcQ, el ID es dQw4w9WgXcQ -->
+                <iframe src="https://www.youtube.com/embed/zZ6fDy6UH68" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p style="margin-top: 20px; font-size: 1.1em;">Esperamos que disfrutes este pequeño recorrido por nuestro taller.</p>
+            <a href="#noticias" class="btn-primary" onclick="showPage('noticias')" style="margin-top: 30px;">Volver a Noticias</a>
+        </section>
+
+        <!-- PAG 8: CONTACTO -->
+        <section id="contacto" class="page">
+            <h2 class="section-title">Estamos Aquí para Ayudarte</h2>
+            <p>¿Tienes alguna pregunta, necesitas un presupuesto o quieres reservar una cita? ¡No dudes en contactarnos!</p>
+            
+            <img src="images/contacto_hamammi.jpg" alt="[Image of Hamammi Bike's contact]" class="page-image">
+
+            <div class="contact-info-grid">
+                <div class="contact-item">
+                    <img src="images/email_icon.png" onerror="this.src='https://placehold.co/80x80/2980b9/ffffff?text=Email'" alt="[Email icon]">
+                    <h3>Email</h3>
+                    <p><a href="mailto:info@hamammibikes.com" style="color: #28a745; text-decoration: none;">info@hamammibikes.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <img src="images/phone_icon.png" onerror="this.src='https://placehold.co/80x80/28a745/ffffff?text=Tel%C3%A9fono'" alt="[Phone icon]">
+                    <h3>Teléfono</h3>
+                    <p><a href="tel:+34123456789" style="color: #28a745; text-decoration: none;">+34 669 367 628</a></p>
+                </div>
+                <div class="contact-item">
+                    <img src="images/address_icon.png" onerror="this.src='https://placehold.co/80x80/3498db/ffffff?text=Direcci%C3%B3n'" alt="[Address icon]">
+                    <h3>Dirección</h3>
+                    <p>Calle de la Bici, 123<br>28013 Madrid, España</p>
+                </div>
+            </div>
+            <p style="margin-top: 40px; font-size: 1.2em;">¡Esperamos verte pronto en Hamammi Bike's!</p>
+        </section>
+
+        <!-- PAG 9: CATEGORÍAS DE PRODUCTOS (similar a PAG 5 pero con más énfasis) -->
+        <section id="categorias" class="page">
+            <h2 class="section-title">Nuestras Categorías de Productos</h2>
+            <p>En Hamammi Bike's, encontrarás todo lo que necesitas para tu bicicleta, organizado en categorías para una fácil navegación y elección.</p>
+            
+            <img src="images/categorias_productos.jpg" alt="[Image of bicycle product categories]" class="page-image">
+
+            <div class="category-grid">
+                <a href="#componentes" class="category-item" onclick="showPage('componentes')">
+                    <img src="images/componentes.jpg" onerror="this.src='https://placehold.co/180x180/e67e22/ffffff?text=Componentes'" alt="[Image of Components]">
+                    <h3>Componentes</h3>
+                    <p>Cuadros, transmisiones, frenos, ruedas y más.</p>
+                </a>
+                <a href="#accesorios" class="category-item" onclick="showPage('accesorios')">
+                    <img src="images/accesorios.jpg" onerror="this.src='https://placehold.co/180x180/28a745/ffffff?text=Accesorios'" alt="[Image of Accessories]">
+                    <h3>Accesorios</h3>
+                    <p>Cascos, luces, ropa, herramientas, bidones y soportes.</p>
+                </a>
+                <a href="#bicicletas_completas" class="category-item" onclick="showPage('bicicletas_completas')">
+                    <img src="images/bicicletas_completas.jpg" onerror="this.src='https://placehold.co/180x180/3498db/ffffff?text=Bicicletas'" alt="[Image of Complete Bicycles]">
+                    <h3>Bicicletas Completas</h3>
+                    <p>Bicicletas de montaña, carretera, urbanas y eléctricas.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- PAG 10: COMPONENTES -->
+        <section id="componentes" class="page">
+            <h2 class="section-title">Componentes Esenciales para tu Bici</h2>
+            <p>Encuentra las piezas perfectas para mejorar el rendimiento o reemplazar componentes de tu bicicleta. ¡Calidad garantizada!</p>
+            
+            <img src="images/componentes_bicicleta.jpg" alt="[Image of bicycle components]" class="page-image">
+
+            <div class="product-grid">
+                <div class="product-item">
+                    <img src="images/cambio_shimano.jpg" onerror="this.src='https://placehold.co/300x200/ff9800/ffffff?text=Cambio+Shimano'" alt="[Image of Shimano Deore Derailleur]">
+                    <h3>Cambio Trasero Shimano Deore</h3>
+                    <p>Rendimiento fiable para MTB.</p>
+                    <p class="price">75.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/frenos_disco.jpg" onerror="this.src='https://placehold.co/300x200/ffb74d/ffffff?text=Frenos+Disco'" alt="[Image of Hydraulic Disc Brakes]">
+                    <h3>Frenos de Disco Hidráulicos Sram Level</h3>
+                    <p>Potencia de frenado superior.</p>
+                    <p class="price">120.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/cassette_sram.jpg" onerror="this.src='https://placehold.co/300x200/ffa726/ffffff?text=Cassette+Sram'" alt="[Image of Sram GX Eagle Cassette]">
+                    <h3>Cassette Sram GX Eagle 12v</h3>
+                    <p>Amplio rango para cualquier terreno.</p>
+                    <p class="price">90.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/horquilla_rockshox.jpg" onerror="this.src='https://placehold.co/300x200/fb8c00/ffffff?text=Horquilla+RockShox'" alt="[Image of RockShox Reba Fork]">
+                    <h3>Horquilla RockShox Reba RL</h3>
+                    <p>Suspensión de aire para confort y control.</p>
+                    <p class="price">350.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/juego_ruedas.jpg" onerror="this.src='https://placehold.co/300x200/ef6c00/ffffff?text=Juego+Ruedas'" alt="[Image of Mavic Crossmax Wheelset]">
+                    <h3>Juego de Ruedas Mavic Crossmax</h3>
+                    <p>Ligeras y resistentes para XC.</p>
+                    <p class="price">480.00€</p>
+                </div>
+            </div>
+            <a href="#categorias" class="btn-primary" onclick="showPage('categorias')" style="margin-top: 30px;">Volver a Categorías</a>
+        </section>
+
+        <!-- PAG 11: ACCESORIOS -->
+        <section id="accesorios" class="page">
+            <h2 class="section-title">Accesorios Imprescindibles para el Ciclista</h2>
+            <p>Desde la seguridad hasta la comodidad, tenemos los accesorios que necesitas para cada salida.</p>
+            
+            <img src="images/accesorios_bicicleta_principal.jpg" alt="[Image of bicycle accessories]" class="page-image">
+
+            <div class="product-grid">
+                <div class="product-item">
+                    <img src="images/gps_garmin.jpg" onerror="this.src='https://placehold.co/300x200/9ccc65/ffffff?text=GPS+Garmin'" alt="[Image of Garmin Edge GPS]">
+                    <h3>GPS Garmin Edge 530</h3>
+                    <p>Navegación avanzada y métricas de rendimiento.</p>
+                    <p class="price">250.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/bidon_termico.jpg" onerror="this.src='https://placehold.co/300x200/aed581/ffffff?text=Bid%C3%B3n+T%C3%A9rmico'" alt="[Image of Elite Thermal Bottle]">
+                    <h3>Bidón Térmico Elite Nano Fly</h3>
+                    <p>Mantiene tu bebida fría por más tiempo.</p>
+                    <p class="price">15.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/herramientas_multiples.jpg" onerror="this.src='https://placehold.co/300x200/c5e1a5/ffffff?text=Herramientas+M%C3%BAltiples'" alt="[Image of Topeak Multi-Tool]">
+                    <h3>Herramienta Múltiple Topeak Mini 18+</h3>
+                    <p>Todo lo que necesitas para reparaciones en ruta.</p>
+                    <p class="price">30.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/bolsa_sillin.jpg" onerror="this.src='https://placehold.co/300x200/8bc34a/ffffff?text=Bolsa+Sill%C3%ADn'" alt="[Image of Zefal Saddle Bag]">
+                    <h3>Bolsa de Sillín Zefal Z Light Pack</h3>
+                    <p>Espacio compacto para tus objetos esenciales.</p>
+                    <p class="price">20.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/guantes_ciclismo.jpg" onerror="this.src='https://placehold.co/300x200/7cb342/ffffff?text=Guantes+Ciclismo'" alt="[Image of Giro Cycling Gloves]">
+                    <h3>Guantes de Ciclismo Giro Bravo Gel</h3>
+                    <p>Comodidad y agarre en cada pedalada.</p>
+                    <p class="price">35.00€</p>
+                </div>
+            </div>
+            <a href="#categorias" class="btn-primary" onclick="showPage('categorias')" style="margin-top: 30px;">Volver a Categorías</a>
+        </section>
+
+        <!-- PAG 12: BICICLETAS COMPLETAS -->
+        <section id="bicicletas_completas" class="page">
+            <h2 class="section-title">Bicicletas Completas para Cualquier Aventura</h2>
+            <p>Descubre nuestra selección de bicicletas, perfectas para cualquier tipo de terreno o estilo de ciclismo. ¡Encuentra tu compañera ideal!</p>
+            
+            <img src="images/bicicletas_completas_principal.jpg" alt="[Image of complete bicycles]" class="page-image">
+
+            <div class="product-grid">
+                <div class="product-item">
+                    <img src="images/mtb_doble.jpg" onerror="this.src='https://placehold.co/300x200/42a5f5/ffffff?text=MTB+Doble'" alt="[Image of Full Suspension MTB]">
+                    <h3>MTB Doble Suspensión TrailPro</h3>
+                    <p>Lista para los senderos más exigentes.</p>
+                    <p class="price">1500.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/carretera_competicion.jpg" onerror="this.src='https://placehold.co/300x200/64b5f6/ffffff?text=Carretera+Competicion'" alt="[Image of Road Competition Bike]">
+                    <h3>Carretera Competición AeroRace</h3>
+                    <p>Velocidad y ligereza para la carretera.</p>
+                    <p class="price">2200.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/urbana_vintage.jpg" onerror="this.src='https://placehold.co/300x200/90caf9/ffffff?text=Urbana+Vintage'" alt="[Image of Vintage Urban Bike]">
+                    <h3>Urbana Vintage CityCruiser</h3>
+                    <p>Estilo y comodidad para la ciudad.</p>
+                    <p class="price">450.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/e_bike_mtb.jpg" onerror="this.src='https://placehold.co/300x200/2196f3/ffffff?text=E-Bike+MTB'" alt="[Image of Electric MTB]">
+                    <h3>E-Bike MTB PowerBoost</h3>
+                    <p>Asistencia eléctrica para conquistar cualquier pendiente.</p>
+                    <p class="price">2800.00€</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/gravel_adventure.jpg" onerror="this.src='https://placehold.co/300x200/1976d2/ffffff?text=Gravel+Adventure'" alt="[Image of Gravel Adventure Bike]">
+                    <h3>Gravel Adventure Explorer</h3>
+                    <p>Versatilidad para asfalto y caminos de tierra.</p>
+                    <p class="price">1200.00€</p>
+                </div>
+            </div>
+            <a href="#categorias" class="btn-primary" onclick="showPage('categorias')" style="margin-top: 30px;">Volver a Categorías</a>
+        </section>
+
+    </div> <!-- Fin .container -->
+
+    <footer>
+        <p>&copy; 2024 Hamammi Bike's. Todos los derechos reservados.</p>
+    </footer>
+
+    <div class="gif-mascot">
+        <!-- Rutas relativas para los GIFs -->
+        <img src="gifs/bici_mascota.gif" onerror="this.src='https://placehold.co/90x90/3498db/ffffff?text=Bici+Mascota'" alt="[Animated bicycle mascot]">
+        <img src="gifs/rueda_animada.gif" onerror="this.src='https://placehold.co/90x90/28a745/ffffff?text=Rueda+Animada'" alt="[Animated wheel]">
+    </div>
+
+    <script>
+        // Función para mostrar la sección de la página y ocultar las demás
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            // Desplazarse al inicio de la sección activa
+            document.getElementById(pageId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Función para reproducir el sonido de trompeta
+        function playTrumpet() {
+            // Reemplaza esta URL con la URL de tu archivo MP3 de trompeta
+            const trumpetSound = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); 
+            trumpetSound.volume = 0.7; // Ajusta el volumen (0.0 a 1.0)
+            trumpetSound.play().catch(e => console.warn("No se pudo reproducir el sonido automáticamente: ", e));
+            // Debido a las políticas de reproducción automática de los navegadores,
+            // el sonido podría no reproducirse si el usuario no ha interactuado antes con la página.
+        }
+
+        // Asegurarse de que la página principal se muestre al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            // Si la URL tiene un hash, intentar mostrar esa página, de lo contrario, mostrar la principal
+            const initialPageId = window.location.hash.substring(1);
+            if (initialPageId && document.getElementById(initialPageId)) {
+                showPage(initialPageId);
+            } else {
+                showPage('principal');
+            }
+        });
+
+        // Manejar la navegación por hash en la URL (ej: volver con el botón atrás del navegador)
+        window.addEventListener('hashchange', () => {
+            const pageId = window.location.hash.substring(1); // Elimina el '#'
+            if (pageId && document.getElementById(pageId)) {
+                showPage(pageId);
+            } else {
+                showPage('principal'); // Si no hay hash o es inválido, vuelve a la página principal
+            }
+        });
+    </script>
+
+</body>
+</html>
